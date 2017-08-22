@@ -19,6 +19,6 @@ RUN apk update \
 COPY files/supervisord.conf /etc/
 
 EXPOSE 8080/tcp 22/tcp
-# VOLUME /var/www
+VOLUME /var/www
 
 ENTRYPOINT ["supervisord", "--nodaemon", "-c", "/etc/supervisord.conf", "-j", "/tmp/supervisord.pid", "-l", "/var/log/supervisord.log"]
