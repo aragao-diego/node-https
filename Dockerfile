@@ -6,7 +6,7 @@ ENV USERNAME='cdn'
 ENV PASSWORD='password'
 
 RUN apk update \
-  && apk --update --no-cache add openssh supervisor \
+  && apk --update --no-cache add openssh sudo supervisor \
   && rm -rf /var/cache/apk/* \
   && printf "$PASSWORD\n$PASSWORD" | adduser $USERNAME \
   && printf "\n\n" | ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key \
@@ -14,6 +14,7 @@ RUN apk update \
   && printf "\n\n" | ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key \
   && printf "\n\n" | ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key \
   && echo "AllowUsers $USERNAME" >> /etc/ssh/sshd_config \
+  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
   && npm install http-server -g
 
 COPY files/supervisord.conf /etc/
