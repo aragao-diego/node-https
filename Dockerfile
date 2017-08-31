@@ -15,7 +15,7 @@ RUN apk update \
   && printf "\n\n" | ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key \
   && echo "AllowUsers $USERNAME" >> /etc/ssh/sshd_config \
   && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
-  && npm install http-server -g
+  && npm install http-server-spa -g
 
 COPY files/supervisord.conf /etc/
 
